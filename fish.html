@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- draw a fishing line puzzle hqm@ai.mit.edu -->
+    <div id="container"></div>
+    <script src="https://web.archive.org/web/20141204030628js_/http://d3lp1msu2r81bx.cloudfront.net/kjs/js/lib/kinetic-v5.0.2.min.js"></script>
+    <script defer="defer">
+
+      function getRndInteger(min, max) {
+          return Math.floor(Math.random() * (max - min) ) + min;
+      }
+
+      function randpoints(n, k, k2) {
+          var pts = []
+          pts.push(k*200+100);
+          pts.push(100);
+          for (var i = 0; i < n; i++) {
+              pts.push(getRndInteger(100,600));
+              pts.push(getRndInteger(100,600));
+          }
+          pts.push(k2*200+100);
+          pts.push(700);
+          return pts;
+
+
+      }
+
+
+      var stage = new Kinetic.Stage({
+        container: 'container',
+        width: 800,
+        height: 800
+      });
+
+      var layer = new Kinetic.Layer();
+
+      function makeCurves(n, npts, layer) {
+          p1 = [0,1,2,3];
+          p2 = [0,1,2,3];
+          p1.sort((a,b) => getRndInteger(-1, 2));
+          p2.sort((a,b) => getRndInteger(-1, 2));
+
+          for (var i = 0; i < n; i++) {
+              k = p1.pop()
+              k2 = p2.pop()
+
+              
+              var startCircle = new Kinetic.Circle({
+                  x: k*200+100,
+                  y: 100,
+                  radius: 20,
+                  fill: 'lightblue',
+                  stroke: 'black',
+                  strokeWidth: 2,
+                  draggable: true
+              });
+
+              var endCircle = new Kinetic.Circle({
+                  x: k2*200+100,
+                  y: 700,
+                  radius: 20,
+                  fill: 'green',
+                  stroke: 'black',
+                  strokeWidth: 2,
+                  draggable: true
+              });
+
+ 
+              layer.add(startCircle);
+              layer.add(endCircle);
+
+
+              var spline = new Kinetic.Line({
+                  points: randpoints(npts, k , k2),
+                  stroke: 'black',
+                  strokeWidth: 2,
+                  lineCap: 'round',
+                  tension: 1
+              });
+              layer.add(spline);
+              
+          }
+      }
+
+      makeCurves(4, 8, layer);
+      stage.add(layer);
+
+    </script>
+  </body>
+</html>      
