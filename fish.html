@@ -48,12 +48,11 @@
           p1.sort((a,b) => getRndInteger(-1, 2));
           p2.sort((a,b) => getRndInteger(-1, 2));
           rn = getRndInteger(0,4);
-
           for (var i = 0; i < n; i++) {
               k = p1.pop()
               k2 = p2.pop()
               target = i == rn;
-              
+              console.log(k2, k, target); // labeled solution for training
               var startCircle = new Kinetic.Circle({
                   x: k*200+100,
                   y: 100,
