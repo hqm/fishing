@@ -47,11 +47,12 @@
           p2 = [0,1,2,3];
           p1.sort((a,b) => getRndInteger(-1, 2));
           p2.sort((a,b) => getRndInteger(-1, 2));
+          rn = getRndInteger(0,4);
 
           for (var i = 0; i < n; i++) {
               k = p1.pop()
               k2 = p2.pop()
-
+              target = i == rn;
               
               var startCircle = new Kinetic.Circle({
                   x: k*200+100,
@@ -67,7 +68,7 @@
                   x: k2*200+100,
                   y: 700,
                   radius: 20,
-                  fill: 'green',
+                  fill: target ? 'red' : 'green',
                   stroke: 'black',
                   strokeWidth: 2,
                   draggable: true
